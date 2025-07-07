@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    background: #f9f9f9;
+    color: #2c3e50;
+  }
+  
+  .container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  header {
+    background: #1c1c1e;
+    color: #fff;
+    padding: 20px 0;
+  }
+  
+  .logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    color: #00ffff;
+  }
+  
+  #hero {
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .hero-text h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+  }
+  
+  .highlight {
+    color: #00ffff;
+  }
+  
+  .objective {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    line-height: 1.7;
+  }
+  
+  .btn {
+    background: #00ffff;
+    color: #141e30;
+    padding: 12px 24px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background: white;
+    color: #000;
+  }
+  
+  section {
+    padding: 60px 0;
+  }
+  
+  .skills {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-top: 10px;
+  }
+  
+  .skills li {
+    background: #e0e0e0;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .project-card {
+    background: white;
+    padding: 25px;
+    margin: 20px 0;
+    border-left: 5px solid #00ffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  footer {
+    background: #1c1c1e;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-weight: 500;
+  }
+  

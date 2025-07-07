@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Epic Image Gallery</title>
+  <link rel="stylesheet" href="image.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 40%, #2c5364 100%),
+                  url('https://www.transparenttextures.com/patterns/black-felt.png');
+      background-blend-mode: overlay;
+      background-size: cover;
+      background-attachment: fixed;
+      color: white;
+      text-align: center;
+    }
+
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    h1 {
+      margin: 30px;
+      font-size: 3rem;
+      background: -webkit-linear-gradient(#ff6f61, #f9d423);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .filters {
+      margin-bottom: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .filters button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #ff6f61, #de6262);
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+    }
+
+    .filters button:hover {
+      transform: translateY(-2px) scale(1.05);
+      background: linear-gradient(to right, #f9d423, #ff4e50);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 0 40px 40px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .gallery-item.nature,
+    .gallery-item.city,
+    .gallery-item.animal {
+      display: block;
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.4s ease, filter 0.3s ease;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.03);
+      filter: brightness(1.1) saturate(1.2);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      font-size: 1rem;
+      padding: 10px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.95);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255,255,255,0.4);
+    }
+
+    .close {
+      position: absolute;
+      top: 20px; right: 30px;
+      font-size: 3rem;
+      cursor: pointer;
+      color: #ff6f61;
+      transition: color 0.3s ease;
+    }
+
+    .close:hover {
+      color: #f9d423;
+    }
+
+    .lightbox-controls button {
+      background: linear-gradient(to right, #ff6f61, #de6262);
+      border: none;
+      padding: 10px 25px;
+      margin: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-controls button:hover {
+      background: linear-gradient(to right, #f9d423, #ff4e50);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    @media screen and (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .gallery-img { height: 200px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+  <h1>Epic Image Gallery</h1>
+
+  <!-- Filter Buttons -->
+  <div class="filters">
+    <button onclick="filterImages('all')">All</button>
+    <button onclick="filterImages('nature')">Nature</button>
+    <button onclick="filterImages('city')">City</button>
+    <button onclick="filterImages('animal')">Animals</button>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery" id="gallery">
+    <div class="gallery-item nature">
+      <img src="images/nature1.jpg" class="gallery-img" alt="Nature 1" onclick="openLightbox(this)" />
+      <div class="caption">Nature</div>
+    </div>
+    <div class="gallery-item city">
+      <img src="images/city1.jpg" class="gallery-img" alt="City 1" onclick="openLightbox(this)" />
+      <div class="caption">City</div>
+    </div>
+    <div class="gallery-item animal">
+      <img src="images/animal1.jpg" class="gallery-img" alt="Animal 1" onclick="openLightbox(this)" />
+      <div class="caption">Animal</div>
+    </div>
+    <div class="gallery-item nature">
+      <img src="images/nature2.jpg" class="gallery-img" alt="Nature 2" onclick="openLightbox(this)" />
+      <div class="caption">Nature</div>
+    </div>
+    <div class="gallery-item city">
+      <img src="images/city2.jpg" class="gallery-img" alt="City 2" onclick="openLightbox(this)" />
+      <div class="caption">City</div>
+    </div>
+    <div class="gallery-item animal">
+      <img src="images/animal2.jpg" class="gallery-img" alt="Animal 2" onclick="openLightbox(this)" />
+      <div class="caption">Animal</div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" />
+    <div class="lightbox-controls">
+      <button onclick="changeImage(-1)">❮ Prev</button>
+      <button onclick="changeImage(1)">Next ❯</button>
+    </div>
+  </div>
+
+  <script src="image.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60 },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.3 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "distance": 120, "color": "#ffffff", "opacity": 0.2, "width": 1 },
+        "move": { "enable": true, "speed": 2 }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" }
+        }
+      },
+      "retina_detect": true
+    });
+
+    function filterImages(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
